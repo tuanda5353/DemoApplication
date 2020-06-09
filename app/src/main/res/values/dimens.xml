@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sp_24">24sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_90">90sp</dimen>
+    <dimen name="dp_204">204dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_5">5dp</dimen>
+</resources>

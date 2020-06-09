@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="weatherResponse"
+            type="com.tuanda.demoapplication.data.model.WeatherResponse" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_gradient">
+
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{weatherResponse.name + "," +weatherResponse.sys.country}'
+            android:textSize="@dimen/sp_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="DHAKA, BD"
+            tools:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/txt_updated_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_address"
+            app:setDate="@{ weatherResponse.dt }"
+            tools:text="20 April 2012, 20:08 PM" />
+
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@{weatherResponse.weather[0].description}"
+            android:textSize="@dimen/sp_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_updated_at"
+            tools:text="Clear Sky" />
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:text="@{String.format(@string/temp_format, weatherResponse.main.temp)}"
+            android:textSize="@dimen/sp_90"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_status"
+            tools:targetApi="jelly_bean"
+            tools:text="29°C" />
+
+        <TextView
+            android:id="@+id/txt_temp_min"
+            android:layout_width="@dimen/dp_204"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/txt_temp_max"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/temp"
+            tools:text="Min Temp: 05:05 AM" />
+
+        <TextView
+            android:id="@+id/txt_temp_max"
+            android:layout_width="@dimen/dp_204"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/temp"
+            app:layout_constraintTop_toBottomOf="@+id/temp"
+            tools:text="Max Temp: 05:05 PM" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="@dimen/dp_25"
+                    android:src="@drawable/sunrise"
+                    android:tint="#FFFFFF"
+                    tools:ignore="ContentDescription" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_sunrise"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:setTime="@{weatherResponse.sys.sunrise}"
+                    tools:text="06:40 AM" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/dp_10"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="25dp"
+                    android:src="@drawable/sunset"
+                    android:tint="#FFFFFF"
+                    tools:ignore="ContentDescription" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    tools:text="Sunset" />
+
+                <TextView
+                    android:id="@+id/sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    app:setTime="@{weatherResponse.sys.sunset}"
+                    tools:text="06:40 AM" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/dp_10"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="25dp"
+                    android:src="@drawable/wind"
+                    android:tint="#FFFFFF"
+                    android:contentDescription="@string/todo" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    tools:text="Wind" />
+
+                <TextView
+                    android:id="@+id/wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{weatherResponse.wind.speed +"km/h"}'
+                    android:textSize="14sp"
+                    tools:text="06:40 AM" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="25dp"
+                    android:src="@drawable/pressure"
+                    android:tint="#FFFFFF"
+                    android:contentDescription="@string/todo" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_pressure"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{ weatherResponse.main.pressure+""}'
+                    android:textSize="14sp"
+                    tools:text="06:40 AM" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/dp_10"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="25dp"
+                    android:src="@drawable/humidity"
+                    android:tint="#FFFFFF"
+                    android:contentDescription="@string/todo" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_humidity"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{ weatherResponse.main.humidity +""}'
+                    android:textSize="14sp"
+                    tools:text="06:40 AM" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="@dimen/dp_10"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/second_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#3CF1EBF1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_25"
+                    android:layout_height="25dp"
+                    android:src="@drawable/info"
+                    android:tint="#FFFFFF"
+                    android:contentDescription="@string/todo" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="5dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_created_by"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/about"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_my_name"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
